@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IFE JavaScript Task 02</title>
+</head>
+
+<body>
+<h3>污染城市列表</h3>
+<ul id="list" >
+	<li>西安，100</li>
+	<li>北京，170</li>
+	<li>成都，80</li>
+	<li>上海，110</li>
+	<li>广州，60</li>
+	<li>福州，70</li>
+</ul>
+污染程度大于等于<select id="mySelect" ><option value="50" >50</option><option value="60" >60</option><option value="70" >70</option><option value="80" >80</option><option value="90" >90</option><option value="100" >100</option></select>的城市有：<input type="button" value="查询" onclick="clicks()" />
+<div id="display" >
+</div>
+<script>
+	var data = [['北京',170],['上海',110],['西安',100],['成都',80],['福州',70],['广州',60]];
+function clicks(){
+	var mySelect = document.getElementById('mySelect');
+	var index = mySelect.selectedIndex;
+	var myValue =  mySelect.options[index].value;
+	var j = 0;
+	var list = new Array();
+	for(var i = 0;i<data.length;i++){
+		if(data[i][1]>=myValue){					
+			list[j] = data[i][0];
+			j++;
+			}
+	}
+	var display = document.getElementById('display');
+	display.innerHTML = "污染程度大于等于"+myValue+"的城市有：";
+	for(j = 0;j<list.length;j++){
+		display.innerHTML+=list[j]+" ";	
+	}
+}
+</script>
+</body>
+</html>

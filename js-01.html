@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IFE JavaScript Task 01</title>
+</head>
+
+<body>
+<label>
+	<input type="text" id="aqi_input"  />
+</label>
+<button id="button" onclick="display()" >确认填写</button>
+<div >
+	您输入的值是：<span id="aqi_display">尚无录入</span>
+</div>
+<script type="text/javascript" >
+function display(){
+	var aqi_input = document.getElementById("aqi_input").value;
+	var aqi_display = document.getElementById("aqi_display");
+	aqi_display.innerHTML = aqi_input;
+}
+</script>
+</body>
+</html>
