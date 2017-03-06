@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IFE-JS-05</title>
+<style>
+div{
+	margin:100px auto;
+	width:800px;
+}
+#list li{
+	float:left;
+	list-style-type:none;
+	background-color:#F33;
+	margin-left:10px;
+	width:40px;
+	text-align:center;
+}
+</style>
+</head>
+
+<body> 
+<div>
+<input type="text" id="num" />
+<input type="button" value="左侧入" onclick="leftIn()" />
+<input type="button" value="右侧入" onclick="rightIn()" />
+<input type="button" value="左侧出" onclick="leftOut()" />
+<input type="button" value="右测出" onclick="rightOut()" />
+
+<ul id="list">
+	<li onclick="disapper(this) ">11</li>
+    <li onclick="disapper(this) ">22</li>
+    <li onclick="disapper(this) ">33</li>
+    <li onclick="disapper(this) ">44</li>
+    <li onclick="disapper(this) ">55</li>
+</ul>
+</div>
+<script>
+/*检查输入合理性*/
+function checkNumber(){
+	var num = document.getElementById('num').value;
+	if(num == ""){
+		alert("输入为空，请重新输入!");
+		return false;
+	}if(isNaN(num)){
+		alert("请输入数字");
+		return false;
+	}if(num<10||num>100){
+		alert("请输入10-100以内的数字");
+		return false
+	}else{
+		return true;
+	}
+}
+/*点击后消失*/
+function disapper(t){
+	var ul = document.getElementById('list');
+	ul.removeChild(t);
+}
+/*左侧入*/
+function leftIn(){
+	if(checkNumber()){
+	var ul  = document.getElementById('list');
+	var txt = document.getElementById('num').value;
+	var oldli = ul.getElementsByTagName('li');
+	if(oldli.length<60){
+	var li = document.createElement('li');
+	var text = document.createTextNode(txt); 
+	li.appendChild(text);
+	li.setAttribute('onclick','disapper(this)');
+	ul.insertBefore(li,oldli[0]);
+	}else{
+		alert("输入已达上限！");
+	}
+	}
+	for(var i = 0;i<oldli.length;i++){
+		oldli[i].style.height = oldli[i].textContent+'px';
+	}
+}
+/*右侧入*/
+function rightIn(){	
+    if(checkNumber()){
+	var ul = document.getElementById('list');
+	var txt = document.getElementById('num').value;	
+	var oldli = ul.getElementsByTagName('li');
+	if(oldli.length<60){
+	var li = document.createElement('li');
+	var text = document.createTextNode(txt); 
+	li.appendChild(text);
+	li.setAttribute('onclick','disapper(this)');
+	ul.appendChild(li);
+	}else{
+		alert("输入已达上限！");
+	}
+	}
+	for(var i = 0;i<oldli.length;i++){
+		oldli[i].style.height = oldli[i].textContent+'px';
+	}
+}
+/*左侧出*/
+function leftOut(){
+	var ul = document.getElementById('list');
+	var oldli = ul.getElementsByTagName('li')[0];
+	ul.removeChild(oldli);
+}
+/*右侧出*/
+function rightOut(){
+	var ul = document.getElementById('list');
+	var oldli = ul.getElementsByTagName('li');
+	var index = oldli.length-1;
+	ul.removeChild(oldli[index]);
+}
+function init(){
+	var ul = document.getElementById('list');
+	var oldli = ul.getElementsByTagName('li');
+	for(var i = 0;i<oldli.length;i++){
+		oldli[i].style.height = oldli[i].textContent+'px';
+	}
+}
+window.onload = init;
+</script>
+</body>
+</html>
