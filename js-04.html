@@ -4,17 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>IFE-JS-04</title>
 <style>
-div{
-	margin:80px 0px 0px 400px;
+.dis{
+	display:inline-block;
+	margin-right:20px;
+	margin-top:10px;
+	background-color:red;
+	padding:10px;
 }
-#list li{
-	float:left;
-	list-style-type:none;
-	background-color:#F33;
-	margin-left:10px;
-	width:40px;
-	text-align:center;
-}
+
 </style>
 </head>
 
@@ -25,13 +22,8 @@ div{
 <input type="button" value="右侧入" onclick="rightIn()" />
 <input type="button" value="左侧出" onclick="leftOut()" />
 <input type="button" value="右测出" onclick="rightOut()" />
-<ul id="list">
-	<li onclick="disapper(this)">11</li>
-    <li onclick="disapper(this)">22</li>
-    <li onclick="disapper(this)">33</li>
-    <li onclick="disapper(this)">44</li>
-    <li onclick="disapper(this)">55</li>
-</ul>
+<div id="list" >
+</div>
 </div>
 <script>
 /*检查数字输入合理性*/
@@ -49,46 +41,44 @@ function checkNumber(){
 }
 /*点击后消失*/
 function disapper(t){
-	var ul = document.getElementById('list');
-	ul.removeChild(t);
+	var list = document.getElementById('list');
+	list.removeChild(t);
 }
 /*左侧入*/
 function leftIn(){
 	if(checkNumber()){
-	var ul  = document.getElementById('list');
-	var txt = document.getElementById('num').value;
-	var oldli = ul.getElementsByTagName('li')[0];
-	var li = document.createElement('li');
-	var text = document.createTextNode(txt); 
-	li.appendChild(text);
-	li.setAttribute('onclick','disapper(this)');
-	ul.insertBefore(li,oldli);
+	var list  = document.getElementById('list');
+	var num = document.getElementById('num').value;
+	var div = document.createElement('div');
+	var text = document.createTextNode(num); 
+	div.appendChild(text);
+	div.setAttribute('class','dis');
+	div.setAttribute('onclick','disapper(this)');
+	list.insertBefore(div,list.firstChild);
 	}
 }
 /*右侧入*/
 function rightIn(){	
-    if(checkNumber()){
-	var ul = document.getElementById('list');
-	var txt = document.getElementById('num').value;
-	var li = document.createElement('li');
-	var text = document.createTextNode(txt); 
-	li.appendChild(text);
-	li.setAttribute('onclick','disapper(this)');
-	ul.appendChild(li);
+   if(checkNumber()){
+	var list  = document.getElementById('list');
+	var num = document.getElementById('num').value;
+	var div = document.createElement('div');
+	var text = document.createTextNode(num); 
+	div.appendChild(text);
+	div.setAttribute('class','dis');
+	div.setAttribute('onclick','disapper(this)');
+	list.appendChild(div);
 	}
 }
 /*左侧出*/
 function leftOut(){
-	var ul = document.getElementById('list');
-	var oldli = ul.getElementsByTagName('li')[0];
-	ul.removeChild(oldli);
+	var list = document.getElementById('list');
+	list.removeChild(list.firstChild);
 }
 /*右侧出*/
 function rightOut(){
-	var ul = document.getElementById('list');
-	var oldli = ul.getElementsByTagName('li');
-	var index = oldli.length-1;
-	ul.removeChild(oldli[index]);
+	var list = document.getElementById('list');
+	list.removeChild(list.lastChild);
 }
 </script>
 </body>

@@ -4,18 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>IFE-JS-05</title>
 <style>
-div{
-	margin:100px auto;
-	width:800px;
+.dis{
+	display:inline-block;
+	margin-right:10px;
+	margin-top:10px;
+	background-color:red;
+	padding:10px;
 }
-#list li{
-	float:left;
-	list-style-type:none;
-	background-color:#F33;
-	margin-left:10px;
-	width:40px;
-	text-align:center;
-}
+
 </style>
 </head>
 
@@ -26,17 +22,12 @@ div{
 <input type="button" value="右侧入" onclick="rightIn()" />
 <input type="button" value="左侧出" onclick="leftOut()" />
 <input type="button" value="右测出" onclick="rightOut()" />
-
-<ul id="list">
-	<li onclick="disapper(this) ">11</li>
-    <li onclick="disapper(this) ">22</li>
-    <li onclick="disapper(this) ">33</li>
-    <li onclick="disapper(this) ">44</li>
-    <li onclick="disapper(this) ">55</li>
-</ul>
+<input type="button" value="排序" onclick="sortOrder()" />
+<div id="list" >
+</div>
 </div>
 <script>
-/*检查输入合理性*/
+/*检查数字输入合理性*/
 function checkNumber(){
 	var num = document.getElementById('num').value;
 	if(num == ""){
@@ -46,78 +37,74 @@ function checkNumber(){
 		alert("请输入数字");
 		return false;
 	}if(num<10||num>100){
-		alert("请输入10-100以内的数字");
-		return false
+		alert("请输入10-100以内的数字！");
+		return false;
 	}else{
 		return true;
 	}
 }
 /*点击后消失*/
 function disapper(t){
-	var ul = document.getElementById('list');
-	ul.removeChild(t);
+	var list = document.getElementById('list');
+	list.removeChild(t);
 }
 /*左侧入*/
 function leftIn(){
 	if(checkNumber()){
-	var ul  = document.getElementById('list');
-	var txt = document.getElementById('num').value;
-	var oldli = ul.getElementsByTagName('li');
-	if(oldli.length<60){
-	var li = document.createElement('li');
-	var text = document.createTextNode(txt); 
-	li.appendChild(text);
-	li.setAttribute('onclick','disapper(this)');
-	ul.insertBefore(li,oldli[0]);
-	}else{
-		alert("输入已达上限！");
-	}
-	}
-	for(var i = 0;i<oldli.length;i++){
-		oldli[i].style.height = oldli[i].textContent+'px';
+		var list  = document.getElementById('list');
+		if(list.childElementCount<60){
+			var num = document.getElementById('num').value;
+			var div = document.createElement('div');
+			div.setAttribute('class','dis');
+			div.setAttribute('onclick','disapper(this)');
+			div.style.height = num+'px';
+			list.insertBefore(div,list.firstChild);
+		}else{
+			alert("输入数目已达60，不能继续输入");
+			}
 	}
 }
 /*右侧入*/
 function rightIn(){	
-    if(checkNumber()){
-	var ul = document.getElementById('list');
-	var txt = document.getElementById('num').value;	
-	var oldli = ul.getElementsByTagName('li');
-	if(oldli.length<60){
-	var li = document.createElement('li');
-	var text = document.createTextNode(txt); 
-	li.appendChild(text);
-	li.setAttribute('onclick','disapper(this)');
-	ul.appendChild(li);
+   if(checkNumber()){
+	var list  = document.getElementById('list');
+	if(list.childElementCount<60){
+		var num = document.getElementById('num').value;
+		var div = document.createElement('div');
+		div.setAttribute('class','dis');
+		div.setAttribute('onclick','disapper(this)');
+		div.style.height = num+'px';
+		list.appendChild(div);
 	}else{
-		alert("输入已达上限！");
-	}
-	}
-	for(var i = 0;i<oldli.length;i++){
-		oldli[i].style.height = oldli[i].textContent+'px';
+		alert("输入数目已达60，不能继续输入");
+		}
 	}
 }
 /*左侧出*/
 function leftOut(){
-	var ul = document.getElementById('list');
-	var oldli = ul.getElementsByTagName('li')[0];
-	ul.removeChild(oldli);
+	var list = document.getElementById('list');
+	list.removeChild(list.firstChild);
 }
 /*右侧出*/
 function rightOut(){
-	var ul = document.getElementById('list');
-	var oldli = ul.getElementsByTagName('li');
-	var index = oldli.length-1;
-	ul.removeChild(oldli[index]);
+	var list = document.getElementById('list');
+	list.removeChild(list.lastChild);
 }
-function init(){
-	var ul = document.getElementById('list');
-	var oldli = ul.getElementsByTagName('li');
-	for(var i = 0;i<oldli.length;i++){
-		oldli[i].style.height = oldli[i].textContent+'px';
+/*从小到大排序*/
+function sortOrder(){
+	var list = document.getElementById('list');
+	var height  = list.getElementsByClassName('dis');
+	var ex;
+	for(var i = 0;i<height.length;i++){
+		for(var j = i+1;j<height.length;j++){
+			if(height[i].style.height>height[j].style.height){
+				ex = height[i].style.height;
+				height[i].style.height = height[j].style.height;
+				height[j].style.height = ex;
+			}
+		}
 	}
 }
-window.onload = init;
 </script>
 </body>
 </html>
