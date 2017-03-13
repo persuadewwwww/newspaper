@@ -11,7 +11,9 @@
 	background-color:#9CC;
 	padding:10px;
 }
-
+span{
+	color:red;
+}
 </style>
 </head>
 
@@ -50,7 +52,7 @@ function putIn(){
 	str[0] = num.join('');
 	str[1] = alp.join('');
 	str[2] = text.join('');
-	str = str.join('---');
+	str = str.join('  ');
 	div.appendChild(document.createTextNode(str));
 	div.setAttribute('class','dis');
 	list.appendChild(div);
@@ -60,9 +62,10 @@ function queryAll(){
 	var list = document.getElementById('list');
 	var divs = list.getElementsByTagName('div');
 	for(var i = 0;i<divs.length;i++){
-		var str = divs[i].textContent;
-		var matchs = str.match(query);
-		
+		var str = divs[i].innerHTML;
+		var matchs = str.match(query);		
+		str = str.replace(matchs,'<span>'+matchs+'</span>');
+		divs[i].innerHTML = str;
 	}
 }
 </script>
