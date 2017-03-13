@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IFE-JS-06</title>
+<style>
+.dis{
+	display:inline-block;
+	margin-right:20px;
+	margin-top:10px;
+	background-color:#9CC;
+	padding:10px;
+}
+
+</style>
+</head>
+
+<body>
+<textarea id="input" >
+</textarea>
+<input type="button" value="插入" onclick="putIn()" />
+<input type="text" id="query"  />
+<input type="button" value="查询" onclick="queryAll()" />
+<div id="list" >
+</div>
+<script>
+function putIn(){
+	var input = document.getElementById('input').value;
+	var list = document.getElementById('list');
+	var div= document.createElement('div');
+ 	var num = new Array,
+		alp = new Array,
+		text = new Array,
+		str = new Array,
+		j = 0;
+		k = 0;
+		m = 0;
+	for(var i= 0;i<input.length;i++){
+		if((input[i]<='z'&&input[i]>='a')||(input[i]<='Z'&&input[i]>='A')){
+			alp[j] = input[i];
+			j++;
+		}else if(input[i]<10&&input[i]>=0){
+			num[k] = input[i];
+			k++;
+		}else{
+			text[m] = input[i];
+			m++;
+		}
+	}
+	str[0] = num.join('');
+	str[1] = alp.join('');
+	str[2] = text.join('');
+	str = str.join('---');
+	div.appendChild(document.createTextNode(str));
+	div.setAttribute('class','dis');
+	list.appendChild(div);
+}
+function queryAll(){
+	var query = document.getElementById('query').value;
+	var list = document.getElementById('list');
+	var divs = list.getElementsByTagName('div');
+	for(var i = 0;i<divs.length;i++){
+		var str = divs[i].textContent;
+		var matchs = str.match(query);
+		
+	}
+}
+</script>
+</body>
+</html>
