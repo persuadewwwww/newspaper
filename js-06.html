@@ -11,9 +11,8 @@
 	background-color:#9CC;
 	padding:10px;
 }
-span{
+.before{
 	color:red;
-	font-size:24px;
 }
 </style>
 </head>
@@ -27,6 +26,7 @@ span{
 <div id="list" >
 </div>
 <script>
+/*插入并分类*/
 function putIn(){
 	var input = document.getElementById('input').value;
 	var list = document.getElementById('list');
@@ -58,14 +58,22 @@ function putIn(){
 	div.setAttribute('class','dis');
 	list.appendChild(div);
 }
+
+/*查询匹配*/
 function queryAll(){
 	var query = document.getElementById('query').value;
 	var list = document.getElementById('list');
 	var divs = list.getElementsByTagName('div');
-	for(var i = 0;i<divs.length;i++){
+	var before = list.getElementsByClassName('before');
+	if(before.length>0){
+		for(var i = 0;i<before.length;i++){
+			before[i].style.color = 'black';
+		}
+	}
+	for(i = 0;i<divs.length;i++){
 		var str = divs[i].innerHTML;
-		var matchs = str.match(query);		
-		str = str.replace(matchs,'<span>'+matchs+'</span>');
+		var matchs = str.match(query);
+		str = str.replace(new RegExp(matchs,"g"),'<span class="before" >'+matchs+'</span>');
 		divs[i].innerHTML = str;
 	}
 }
